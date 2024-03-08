@@ -4,8 +4,6 @@ from square.client import Client
 from flask_cors import CORS
 import requests
 
-import os
-
 # Load environment variables
 load_dotenv()
 
