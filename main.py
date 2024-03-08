@@ -1,11 +1,12 @@
 from flask import Flask, jsonify , request
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from square.client import Client
 from flask_cors import CORS
 import requests
+import os
 
 # Load environment variables
-# load_dotenv()
+load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -428,5 +429,8 @@ def discounts():
     else:
         return jsonify(responses), 207
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))  # Default to 5000 for local development
+    app.run(host='0.0.0.0', port=port)
