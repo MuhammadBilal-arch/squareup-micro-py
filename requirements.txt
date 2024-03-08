@@ -1,5 +1,4 @@
-flask
+flask 
 requests
 flask_cors
-dotenv
-flask_cors
+square

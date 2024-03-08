@@ -1,11 +1,11 @@
 from flask import Flask, jsonify , request
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from square.client import Client
 from flask_cors import CORS
 import requests
 
 # Load environment variables
-load_dotenv()
+# load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
