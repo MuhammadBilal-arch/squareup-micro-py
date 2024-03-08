@@ -1,7 +1,9 @@
 from flask import Flask, jsonify , request
 from dotenv import load_dotenv
 from square.client import Client
+from flask_cors import CORS
 import requests
+
 import os
 
 # Load environment variables
@@ -9,16 +11,28 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
-# Initialize Square client
-client = Client(
-    access_token=os.environ['SQUARE_ACCESS_TOKEN'],
-    environment='production')
+ # Initialize Square client
+# client = Client(
+#     access_token=os.environ['SQUARE_ACCESS_TOKEN'],
+#     environment='production')
 
-baseUrl = 'http://192.168.18.11:1700/api/'
+# baseUrl = 'http://192.168.18.11:1700/api/'
+baseUrl = 'https://square-strapi-production.up.railway.app/api/'
 
 @app.route('/items', methods=['GET'])
 def list_catalog():
+    square_access_token = request.headers.get('Square-Access-Token')
+
+    if not square_access_token:
+        return jsonify({'error': 'Square access token is missing'}), 401
+
+    # Initialize the Square client with the token from the frontend
+    client = Client(
+        access_token=square_access_token,
+        environment='production'
+    )
     auth_header = request.headers.get('Authorization')
     token = None
 
@@ -101,7 +115,7 @@ def list_catalog():
                 responses.append(response_data)
             except requests.exceptions.RequestException as e:
                 responses.append({'status_code': 500, 'error': str(e)})
-        
+        return jsonify(responses)
         if all(response['status_code'] == 200 for response in responses):
             return jsonify(responses), 200
         else:
@@ -114,6 +128,16 @@ def list_catalog():
 # CATEGORIES
 @app.route('/categories', methods=['GET'])
 def categories():
+    square_access_token = request.headers.get('Square-Access-Token')
+
+    if not square_access_token:
+        return jsonify({'error': 'Square access token is missing'}), 401
+
+    # Initialize the Square client with the token from the frontend
+    client = Client(
+        access_token=square_access_token,
+        environment='production'
+    )
     auth_header = request.headers.get('Authorization')
     token = None
 
@@ -166,6 +190,16 @@ def categories():
 
 @app.route('/modifiers', methods=['GET'])
 def modifiers():
+    square_access_token = request.headers.get('Square-Access-Token')
+
+    if not square_access_token:
+        return jsonify({'error': 'Square access token is missing'}), 401
+
+    # Initialize the Square client with the token from the frontend
+    client = Client(
+        access_token=square_access_token,
+        environment='production'
+    )
     auth_header = request.headers.get('Authorization')
     token = None
 
@@ -240,6 +274,16 @@ def modifiers():
 
 @app.route('/custom-attributes', methods=['GET'])
 def custom_attributes():
+    square_access_token = request.headers.get('Square-Access-Token')
+
+    if not square_access_token:
+        return jsonify({'error': 'Square access token is missing'}), 401
+
+    # Initialize the Square client with the token from the frontend
+    client = Client(
+        access_token=square_access_token,
+        environment='production'
+    )
     auth_header = request.headers.get('Authorization')
     token = None
 
@@ -309,6 +353,16 @@ def custom_attributes():
 
 @app.route('/discounts', methods=['GET'])
 def discounts():
+    square_access_token = request.headers.get('Square-Access-Token')
+
+    if not square_access_token:
+        return jsonify({'error': 'Square access token is missing'}), 401
+
+    # Initialize the Square client with the token from the frontend
+    client = Client(
+        access_token=square_access_token,
+        environment='production'
+    )
     auth_header = request.headers.get('Authorization')
     token = None
 
