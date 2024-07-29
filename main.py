@@ -18,7 +18,7 @@ CORS(app)
 #     environment='production')
 
 # baseUrl = 'http://192.168.18.11:1700/api/'
-baseUrl = 'https://square-strapi-production.up.railway.app/api/'
+baseUrl = 'https://coral-app-v3n78.ondigitalocean.app/api/'
 
 @app.route('/items', methods=['GET'])
 def list_catalog():
